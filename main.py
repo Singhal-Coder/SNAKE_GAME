@@ -98,6 +98,37 @@ class Snake:
 
     def increase_length(self):
         #increase length of the snake
+        if self.length==1:
+            if self.direction == 'up':
+                self.x.append(self.x[0])
+                self.y.append(self.y[0] + SIZE)
+            elif self.direction == 'down':
+                self.x.append(self.x[0])
+                self.y.append(self.y[0] - SIZE)
+            elif self.direction == 'left':
+                self.x.append(self.x[0] + SIZE)
+                self.y.append(self.y[0])
+            elif self.direction == 'right':
+                self.x.append(self.x[0] - SIZE)
+                self.y.append(self.y[0])
+        else:
+            if (self.x[-1] == self.x[-2]):
+                if self.y[-1]>self.y[-2]:
+                    self.x.append(self.x[-1])
+                    self.y.append(self.y[-1] + SIZE)
+                else:
+                    self.x.append(self.x[-1])
+                    self.y.append(self.y[-1] - SIZE)
+
+            elif (self.y[-1] == self.y[-2]):
+                if self.x[-1]>self.x[-2]:
+                    self.x.append(self.x[-1] + SIZE)
+                    self.y.append(self.y[-1])
+                else:
+                    self.x.append(self.x[-1] - SIZE)
+                    self.y.append(self.y[-1])
+
+        self.length+=1
 
 class PLAY:
     def __init__(self):
@@ -151,6 +182,7 @@ class PLAY:
             or self.snake.y[0]>=800):
             return True
         return False
+        
     def render_background(self):
         bg = oss.image.load("./background.jpg.jpg")
         self.surface.blit(bg, (0,0))
