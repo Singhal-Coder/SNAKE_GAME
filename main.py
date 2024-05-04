@@ -58,16 +58,20 @@ class Snake:
         self.y = [60]
 
     def move_left(self):
-        self.direction = 'left'
+        if self.direction!='right' or self.snake.length==1:
+            self.direction = 'left'
 
     def move_right(self):
-        self.direction = 'right'
+        if self.direction!='left' or self.snake.length==1:
+            self.direction = 'right'
 
     def move_up(self):
-        self.direction = 'up'
+        if self.direction!='down' or self.snake.length==1:
+            self.direction = 'up'
 
     def move_down(self):
-        self.direction = 'down'
+        if self.direction!='up' or self.snake.length==1:
+            self.direction = 'down'
 
     def walk(self):
 
@@ -136,6 +140,9 @@ class PLAY:
 
     def is_collision(self, x1, y1, x2, y2):
         #add collision of snake on  boundary
+        if (x1==x2 and y1==y2):
+            return True
+        return False
 
     def is_out_of_bounds(self):
         if (self.snake.x[0]<0
@@ -159,6 +166,13 @@ class PLAY:
             self.play_sound("beep")
             self.snake.increase_length()
             self.apple.move()
+            i=1
+            while i<self.snake.length:
+                if self.is_collision(self.snake.x[i], self.snake.y[i], self.apple.x, self.apple.y):
+                    self.apple.move()
+                    i=1
+                else:
+                    i+=1
             if self.snake.length%5==0:
                 self.increase_speed()
 
