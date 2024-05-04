@@ -45,7 +45,7 @@ class Apple:
 
     def move(self):
         self.x = random.randint(1,16)*SIZE
-        self.y = random.randint(1,13)*SIZE
+        self.y = random.randint(1,11)*SIZE
 
 class Snake:
     def __init__(self, parent_screen):
@@ -58,19 +58,19 @@ class Snake:
         self.y = [60]
 
     def move_left(self):
-        if self.direction!='right' or self.snake.length==1:
+        if self.direction!='right' or self.length==1:
             self.direction = 'left'
 
     def move_right(self):
-        if self.direction!='left' or self.snake.length==1:
+        if self.direction!='left' or self.length==1:
             self.direction = 'right'
 
     def move_up(self):
-        if self.direction!='down' or self.snake.length==1:
+        if self.direction!='down' or self.length==1:
             self.direction = 'up'
 
     def move_down(self):
-        if self.direction!='up' or self.snake.length==1:
+        if self.direction!='up' or self.length==1:
             self.direction = 'down'
 
     def walk(self):
@@ -137,7 +137,7 @@ class PLAY:
         oss.mixer.init()
         self.play_background_music()
 
-        self.surface = oss.display.set_mode((1000, 800))
+        self.surface = oss.display.set_mode((1000, 690))
         self.snake = Snake(self.surface)
         self.snake.draw()
         self.apple = Apple(self.surface)
@@ -179,7 +179,7 @@ class PLAY:
         if (self.snake.x[0]<0
             or self.snake.x[0]>=1000
             or self.snake.y[0]<0
-            or self.snake.y[0]>=800):
+            or self.snake.y[0]>=690):
             return True
         return False
         
@@ -198,11 +198,11 @@ class PLAY:
             self.play_sound("beep")
             self.snake.increase_length()
             self.apple.move()
-            i=1
+            i=0
             while i<self.snake.length:
                 if self.is_collision(self.snake.x[i], self.snake.y[i], self.apple.x, self.apple.y):
                     self.apple.move()
-                    i=1
+                    i=0
                 else:
                     i+=1
             if self.snake.length%5==0:
@@ -280,7 +280,7 @@ class PLAY:
 
 if __name__ == '__main__':
     oss.init()
-    surface = oss.display.set_mode((1000, 800))
+    surface = oss.display.set_mode((1000, 690))
     oss.display.set_caption('Snake Game')
     oss.display.set_icon(oss.image.load(r"./game_icon.png"))
     welcome = WelcomeScreen(surface)
