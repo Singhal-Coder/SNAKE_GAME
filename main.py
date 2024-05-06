@@ -189,8 +189,8 @@ class PLAY:
 
     def play(self):
         self.render_background()
-        self.snake.walk()
         self.apple.draw()
+        self.snake.walk()
         self.display_score()
         oss.display.flip()
 
@@ -251,16 +251,16 @@ class PLAY:
                         pause = False
 
                     if not pause:
-                        if event.key == K_LEFT:
+                        if event.key == K_LEFT or event.key == K_a:
                             self.snake.move_left()
 
-                        if event.key == K_RIGHT:
+                        if event.key == K_RIGHT or event.key == K_d:
                             self.snake.move_right()
 
-                        if event.key == K_UP:
+                        if event.key == K_UP or event.key == K_w:
                             self.snake.move_up()
 
-                        if event.key == K_DOWN:
+                        if event.key == K_DOWN or event.key == K_s:
                             self.snake.move_down()
 
                 elif event.type == QUIT:
